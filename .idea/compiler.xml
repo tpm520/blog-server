@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="blog-basic-module-api" />
+        <module name="blog-oam-module-api" />
+        <module name="blog-oam-module-service" />
+        <module name="blog-main-module-service" />
+        <module name="blog-user-module-service" />
+        <module name="blog-basic-module-service" />
+        <module name="blog-user-module-api" />
+        <module name="blog-main-module-api" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
