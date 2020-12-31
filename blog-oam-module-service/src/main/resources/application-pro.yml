@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: blog-oam-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: **
+    password: **
+    url: jdbc:mysql://**/**
+    type: com.alibaba.druid.pool.DruidDataSource
+mybatis:
+  mapper-locations: classpath:config/mapper/*Mapper.xml
+  type-aliases-package: com.tpblog.oam.api.entity

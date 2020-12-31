@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: **
+    password: **
+    url: jdbc:mysql://**/**
+    type: com.alibaba.druid.pool.DruidDataSource
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  application:
+    name: blog-basic-service
+mybatis:
+  mapper-locations: classpath:config/mapper/*Mapper.xml
+  config-location: classpath:config/mybatis-config.xml
+  type-aliases-package: com.tpblog.basic
