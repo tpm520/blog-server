@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: blog-user-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 121.4.137.40:8848
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: tp..0792
+    url: jdbc:mysql://47.106.207.100:3306/blogServer
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    host: 121.4.137.40
+    database: 0
+    password: redis789
+    port: 6379
+mybatis:
+  mapper-locations: classpath:config/mapper/*Mapper.xml
+  type-aliases-package: com.tpblog.user.api.entity
