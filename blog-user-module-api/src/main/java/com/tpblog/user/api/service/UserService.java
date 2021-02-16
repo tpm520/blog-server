@@ -28,4 +28,11 @@ public interface UserService {
      * @return
      */
     User findUserByUsernameAndPassword(String username,String password);
+
+    /**
+     * 退出登录
+     * @param username
+     * @return
+     */
+    Boolean logout(String username);
 }

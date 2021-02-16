@@ -14,4 +14,5 @@ public interface UserMapper {
     User findUserByUsername(String username);
 
     User findUserByUsernameAndPassword(String username,String password);
+
 }

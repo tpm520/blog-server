@@ -6,6 +6,7 @@ import com.tpblog.user.api.exception.ExceptionUtil;
 import com.tpblog.user.api.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.util.StringUtils;
@@ -66,9 +67,7 @@ public class UserController {
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             throw new ExceptionUtil.LoginFailed("用户名或密码不能为空");
         }
-        Cookie cookie = new Cookie("blog_user", SecureUtil.md5(username));
-        cookie.setMaxAge(30*60);
-        response.addCookie(cookie);
+        // 是否登录
         if (isLogin(SecureUtil.md5(username))) {
             return true;
         }
@@ -76,9 +75,23 @@ public class UserController {
         if (user == null) {
             return false;
         }
+        Cookie cookie = new Cookie("blog_user", SecureUtil.md5(username));
+        cookie.setMaxAge(30*60);
+        cookie.setPath("/");
+        response.addCookie(cookie);
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
         valueOperations.set(SecureUtil.md5(username),user,30, TimeUnit.MINUTES);
         return true;
+    }
+
+    /**
+     * 退出登录
+     * @param username
+     * @return
+     */
+    @GetMapping("logout")
+    public Boolean logout(@RequestParam("username") String username){
+        return userService.logout(username);
     }
 
     /**
@@ -100,5 +113,16 @@ public class UserController {
         }
         log.info("未登录");
         return false;
+    }
+
+    /**
+     * 通过用户名查询用户
+     * @param username
+     * @return
+     */
+    @GetMapping("find/{username}")
+    public User findUserByUsername(@PathVariable("username") String username){
+        User userByUsername = userService.findUserByUsername(username);
+        return userByUsername;
     }
 }

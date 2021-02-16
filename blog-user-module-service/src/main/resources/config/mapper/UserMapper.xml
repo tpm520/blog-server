@@ -14,7 +14,7 @@
 
     <!--根据用户名查询用户-->
     <select id="findUserByUsername" resultType="com.tpblog.user.api.entity.User">
-        SELECT username FROM user WHERE username=#{username}
+        SELECT * FROM user WHERE username=#{username}
     </select>
 
     <!--根据用户名和密码查询用户-->
