@@ -5,16 +5,23 @@ import com.tpblog.user.api.entity.User;
 import com.tpblog.user.api.exception.ExceptionUtil;
 import com.tpblog.user.api.service.UserService;
 import com.tpblog.user.service.mapper.UserMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private RedisTemplate<String,Object> redisTemplate;
 
     @Override
     public List<User> findUserAll() {
@@ -41,5 +48,18 @@ public class UserServiceImpl implements UserService {
         password = SecureUtil.md5(password);
         User user = userMapper.findUserByUsernameAndPassword(username, password);
         return user;
+    }
+
+    @Override
+    public Boolean logout(String username) {
+        String userMd5 = SecureUtil.md5(username);
+        redisTemplate.delete(userMd5);
+        if(redisTemplate.hasKey(userMd5)){
+            log.info("redis缓存用户未清除");
+            return false;
+        }else {
+            log.info("退出登录");
+        }
+        return true;
     }
 }
